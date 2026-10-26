@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyApp</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <span class="logo">L</span>
+
+            <span>
+                <b>MyApp</b>
+                <small>Lokesh's workspace</small>
+            </span>
+
+            <button id="closeNav" class="icon mobile" type="button">
+                ×
+            </button>
+        </div>
+
+        <div class="workspace">
+            🟢 &nbsp; Personal workspace
+            <span>⌄</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav>
+            <button class="nav active" data-page="dashboard" type="button">
+                ▦ &nbsp; Dashboard
+            </button>
+
+            <button class="nav" data-page="tasks" type="button">
+                ☷ &nbsp; To Do
+                <span id="taskCount">0</span>
+            </button>
+
+            <button class="nav" data-page="jobs" type="button">
+                ▣ &nbsp; Job applications
+            </button>
+
+            <button class="nav" data-page="learning" type="button">
+                ▤ &nbsp; Learning
+            </button>
+
+            <button class="nav" data-page="analytics" type="button">
+                ▥ &nbsp; Analytics
+            </button>
+        </nav>
+
+        <div class="side-bottom">
+            <b>Small steps count.</b>
+            <small>Make today intentional.</small>
+
+            <div class="connection">
+                <i id="statusDot"></i>
+                <span id="connection">Backend not connected</span>
+            </div>
+        </div>
+
+    </aside>
+
+    <div id="scrim"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- HEADER -->
+        <header>
+            <button id="openNav" class="icon mobile" type="button">
+                ☰
+            </button>
+
+            <div class="crumb">
+                Personal workspace
+                <span>/</span>
+                <b id="crumb">Dashboard</b>
+            </div>
+
+            <div id="today"></div>
+
+            <div class="avatar">LG</div>
+        </header>
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+            <section class="page active" id="dashboard">
+
+                <div class="heading">
+                    <div>
+                        <small class="eyebrow">YOUR SPACE, YOUR PACE</small>
+                        <h1>Good day, Lokesh ✳</h1>
+                        <p>A clear space to plan, learn, and move forward.</p>
+                    </div>
+
+                    <button class="primary" data-add="task" type="button">
+                        ＋ New task
+                    </button>
+                </div>
+
+                <div class="stats">
+
+                    <article>
+                        <label>Tasks for today</label>
+                        <strong id="todayTotal">0</strong>
+                        <small>Scheduled for today</small>
+                    </article>
+
+                    <article>
+                        <label>Open tasks</label>
+                        <strong id="openTotal">0</strong>
+                        <small>Still on your list</small>
+                    </article>
+
+                    <article>
+                        <label>Applications</label>
+                        <strong id="jobTotal">0</strong>
+                        <small>Opportunities tracked</small>
+                    </article>
+
+                    <article>
+                        <label>Learning progress</label>
+                        <strong id="learnAvg">0%</strong>
+                        <small>Average across goals</small>
+                    </article>
+
+                </div>
+
+                <div class="dash-grid">
+
+                    <article class="panel">
+
+                        <div class="panel-head">
+                            <div>
+                                <h2>Today's focus</h2>
+                                <p>Your priorities, all in one place.</p>
+                            </div>
+
+                            <button class="link" data-go="tasks" type="button">
+                                View all ↗
+                            </button>
+                        </div>
+
+                        <div id="todayTasks" class="empty">
+                            Your tasks will appear here when you add them.
+                        </div>
+
+                    </article>
+
+                    <article class="panel">
+
+                        <div class="panel-head">
+                            <div>
+                                <h2>Quick actions</h2>
+                                <p>Keep your momentum going.</p>
+                            </div>
+                        </div>
+
+                        <button class="quick" data-add="task" type="button">
+                            ＋
+                            <span>
+                                <b>Add a task</b>
+                                <small>Capture your next action</small>
+                            </span>
+                            ↗
+                        </button>
+
+                        <button class="quick" data-add="job" type="button">
+                            ▣
+                            <span>
+                                <b>Track an application</b>
+                                <small>Keep your job search moving</small>
+                            </span>
+                            ↗
+                        </button>
+
+                        <button class="quick" data-add="learning" type="button">
+                            ↗
+                            <span>
+                                <b>Update learning</b>
+                                <small>Make progress visible</small>
+                            </span>
+                            ↗
+                        </button>
+
+                    </article>
+
+                </div>
+
+                <article class="panel">
+
+                    <div class="panel-head">
+                        <div>
+                            <h2>Workspace overview</h2>
+                            <p>A quick snapshot of what you're working toward.</p>
+                        </div>
+                    </div>
+
+                    <div class="overview">
+
+                        <div>
+                            <small>JOB SEARCH</small>
+                            <b id="jobOverview">0 applications</b>
+                            <div class="track">
+                                <i id="jobBar"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small>LEARNING GOALS</small>
+                            <b id="learnOverview">0 learning goals</b>
+                            <div class="track">
+                                <i id="learnBar"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small>TASK COMPLETION</small>
+                            <b id="taskOverview">0% completed</b>
+                            <div class="track">
+                                <i id="taskBar"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- TO DO -->
+            <section class="page" id="tasks">
+
+                <div class="heading">
+                    <div>
+                        <small class="eyebrow">PLAN WITH INTENTION</small>
+                        <h1>To Do</h1>
+                        <p>Capture everything. Prioritize what matters.</p>
+                    </div>
+
+                    <button class="primary" data-add="task" type="button">
+                        ＋ New task
+                    </button>
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="tabs">
+                        <button class="tab selected" data-taskview="table" type="button">
+                            ▤ Table
+                        </button>
+
+                        <button class="tab" data-taskview="calendar" type="button">
+                            ▦ Calendar
+                        </button>
+
+                        <button class="tab" data-taskview="board" type="button">
+                            ▥ Board
+                        </button>
+                    </div>
+
+                    <div class="tools">
+                        <input id="taskSearch" placeholder="⌕ Search tasks">
+
+                        <select id="taskFilter">
+                            <option>All statuses</option>
+                            <option>Open</option>
+                            <option>In Progress</option>
+                            <option>Done</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- TABLE VIEW -->
+                <div id="taskTable" class="view selected">
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Category</th>
+                                    <th>Due Date</th>
+                                    <th>Notes</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tasksRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CALENDAR VIEW -->
+                <div id="taskCalendar" class="view">
+
+                    <div class="calendar-head">
+                        <button id="prevMonth" type="button">‹</button>
+                        <b id="monthName"></b>
+                        <button id="nextMonth" type="button">›</button>
+                    </div>
+
+                    <div id="calendar" class="calendar"></div>
+
+                </div>
+
+                <!-- BOARD VIEW -->
+                <div id="taskBoard" class="view">
+                    <div id="taskColumns" class="columns"></div>
+                </div>
+
+            </section>
+
+            <!-- JOB APPLICATIONS -->
+            <section class="page" id="jobs">
+
+                <div class="heading">
+                    <div>
+                        <small class="eyebrow">BUILD YOUR NEXT CHAPTER</small>
+                        <h1>Job applications</h1>
+                        <p>One place to keep every opportunity moving.</p>
+                    </div>
+
+                    <button class="primary" data-add="job" type="button">
+                        ＋ Add application
+                    </button>
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="tabs">
+                        <button class="tab selected" data-jobview="table" type="button">
+                            ▤ Table
+                        </button>
+
+                        <button class="tab" data-jobview="board" type="button">
+                            ▥ Board
+                        </button>
+                    </div>
+
+                    <div class="tools">
+                        <input id="jobSearch" placeholder="⌕ Search companies">
+                    </div>
+
+                </div>
+
+                <!-- JOB TABLE -->
+                <div id="jobTable" class="view selected">
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th>Application Date</th>
+                                    <th>Next Action</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="jobsRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- JOB BOARD -->
+                <div id="jobBoard" class="view">
+                    <div id="jobColumns" class="columns six"></div>
+                </div>
+
+            </section>
+
+            <!-- LEARNING -->
+            <section class="page" id="learning">
+
+                <div class="heading">
+                    <div>
+                        <small class="eyebrow">KEEP GETTING BETTER</small>
+                        <h1>Learning</h1>
+                        <p>Turn curiosity into consistent progress.</p>
+                    </div>
+
+                    <button class="primary" data-add="learning" type="button">
+                        ＋ Add learning goal
+                    </button>
+                </div>
+
+                <div id="learningCards" class="learning-cards"></div>
+
+                <article class="panel tablepanel">
+
+                    <div class="panel-head">
+                        <div>
+                            <h2>All learning goals</h2>
+                            <p>Track your focus, progress, and resources.</p>
+                        </div>
+                    </div>
+
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Skill / Course</th>
+                                    <th>Status</th>
+                                    <th>Progress</th>
+                                    <th>Target Date</th>
+                                    <th>Resource</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="learningRows"></tbody>
+                        </table>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- ANALYTICS -->
+            <section class="page" id="analytics">
+
+                <div class="heading">
+                    <div>
+                        <small class="eyebrow">NOTICE YOUR PROGRESS</small>
+                        <h1>Analytics</h1>
+                        <p>A simple view of your consistency and momentum.</p>
+                    </div>
+                </div>
+
+                <div class="analytics">
+
+                    <article class="panel">
+                        <small>TASKS COMPLETED</small>
+                        <strong id="analyticsDone">0</strong>
+                        <p>Tasks marked done</p>
+                        <div id="taskBars" class="bars"></div>
+                    </article>
+
+                    <article class="panel">
+                        <small>APPLICATION PIPELINE</small>
+                        <strong id="analyticsJobs">0</strong>
+                        <p>Applications being tracked</p>
+                        <div id="jobBreakdown"></div>
+                    </article>
+
+                    <article class="panel">
+                        <small>LEARNING PROGRESS</small>
+                        <strong id="analyticsLearning">0%</strong>
+                        <p>Average completion across goals</p>
+                        <div id="learningBreakdown"></div>
+                    </article>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            Personal OS
+            <span>Designed for focus, built to grow.</span>
+        </footer>
+
+    </main>
+
+    <!-- CREATE / EDIT DIALOG -->
+    <dialog id="editor">
+
+        <form id="editorForm">
+
+            <div class="modal-head">
+                <div>
+                    <small class="eyebrow">WORKSPACE</small>
+                    <h2 id="modalTitle">New item</h2>
+                </div>
+
+                <button type="button" class="icon" id="dismiss">
+                    ×
+                </button>
+            </div>
+
+            <div id="fields" class="fields"></div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary" id="cancel">
+                    Cancel
+                </button>
+
+                <button class="primary" type="submit">
+                    Save item
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- NOTIFICATION -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
