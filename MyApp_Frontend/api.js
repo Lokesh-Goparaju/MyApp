@@ -67,20 +67,20 @@ const unwrap = data =>
 async function api(action, type, id, payload) {
     const paths = {
         task: "/tasks",
-        job: "/jobs",
+        job: "/job",
         learning: "/learning"
     };
 
-    // Load currently implemented backend data.
     if (action === "load") {
-        const [tasks, learning] = await Promise.all([
+        const [tasks, jobs, learning] = await Promise.all([
             request("/tasks"),
+            request("/job"),
             request("/learning")
         ]);
 
         return {
             tasks: unwrap(tasks),
-            jobs: [],
+            jobs: unwrap(jobs),
             learning: unwrap(learning)
         };
     }

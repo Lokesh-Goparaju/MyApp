@@ -380,7 +380,7 @@ function renderLearning() {
                     <button data-edit="learning" data-id="${esc(item.id)}">Edit</button>
                 </article>
             `).join("")
-            : `<div class="empty">Learning API not connected yet.</div>`;
+            : `<div class="empty">No learning goals yet — add your first goal.</div>`;
     }
 
     const rows = $("#learningRows");
@@ -411,8 +411,7 @@ function renderLearning() {
                     </td>
                 </tr>
             `).join("")
-            : emptyRow(6, "Learning API not connected yet.");
-    }
+: emptyRow(6, "No learning goals yet.");    }
 }
 
 /* =========================================
@@ -756,12 +755,6 @@ function initializeApp() {
     $$("[data-add]").forEach(button => {
         button.addEventListener("click", () => {
             const type = button.dataset.add;
-
-            if (type !== "task") {
-                notify("This module's backend is not connected yet.", true);
-                return;
-            }
-
             openEditor(type);
         });
     });
@@ -814,31 +807,26 @@ function initializeApp() {
             });
         });
     });
+document.addEventListener("click", event => {
+    const editButton = event.target.closest("[data-edit]");
 
-    document.addEventListener("click", event => {
-        const editButton = event.target.closest("[data-edit]");
+    if (editButton) {
+        openEditor(
+            editButton.dataset.edit,
+            editButton.dataset.id
+        );
+        return;
+    }
 
-        if (editButton) {
-            if (editButton.dataset.edit !== "task") {
-                notify("This module's backend is not connected yet.", true);
-                return;
-            }
+    const deleteButton = event.target.closest("[data-delete]");
 
-            openEditor(editButton.dataset.edit, editButton.dataset.id);
-            return;
-        }
-
-        const deleteButton = event.target.closest("[data-delete]");
-
-        if (deleteButton) {
-            if (deleteButton.dataset.delete !== "task") {
-                notify("This module's backend is not connected yet.", true);
-                return;
-            }
-
-            remove(deleteButton.dataset.delete, deleteButton.dataset.id);
-        }
-    });
+    if (deleteButton) {
+        remove(
+            deleteButton.dataset.delete,
+            deleteButton.dataset.id
+        );
+    }
+});
 
     const todayElement = $("#today");
 
